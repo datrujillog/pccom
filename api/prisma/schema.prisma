@@ -15,7 +15,7 @@ datasource db {
 
 model User {
   id        String   @id @default(cuid())
-  name      String?
-  lastName  String?
-  email     String   @unique
+  Name      String?
+  LastName  String?
+  Email     String   @unique
 }

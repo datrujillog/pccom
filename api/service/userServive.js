@@ -18,10 +18,8 @@ class UserService {
 
             const user = await userRepository.createUsers(data);
 
-            return {
-                success: true,
-                user: user
-            };
+            return user;
+
         } catch (error) {
             return {
                 success: false,
@@ -36,10 +34,7 @@ class UserService {
 
             const users = await userRepository.getAllUsers();
 
-            return {
-                success: true,
-                users
-            };
+            return users
 
         } catch (error) {
             return {
@@ -93,16 +88,10 @@ class UserService {
 
             const user = await userRepository.deleteUser(id);
 
-            return {
-                success: true,
-                user
-            };
+            return user;
 
         } catch (error) {
-            return {
-                success: false,
-                error
-            };
+            throw error
         }
     }
 

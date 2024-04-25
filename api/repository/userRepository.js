@@ -26,10 +26,7 @@ class UserRepository {
 
             if (!user) throw new Error("User not created")
 
-            return {
-                success: true,
-                user
-            };
+            return user;
 
         } catch (error) {
             if (error.code === "P2002") {
@@ -46,10 +43,12 @@ class UserRepository {
 
             const users = await this.#userModel.findMany();
 
-            return {
-                success: true,
-                users
-            };
+            delete users[0].id;
+
+            //hacer un map para eliminar el id de cada usuario
+            // users.map(user => { delete user.id });
+
+            return users;
 
         } catch (error) {
             return {
@@ -114,24 +113,18 @@ class UserRepository {
 
         try {
 
-            const user = await this.#userModel.delete({
+            const user = await this.#userModel.deleteMany({
                 where: {
                     id: id
                 }
             });
 
-            if (!user) throw new Error("User not found");
+            if (user.count === 0) throw new Error("User not found");
 
-            return {
-                success: true,
-                user
-            };
+            return user;
 
         } catch (error) {
-            return {
-                success: false,
-                error
-            };
+            throw error
         }
     }
 

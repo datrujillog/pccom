@@ -22,12 +22,9 @@ class UserRouter {
 
                 const body = req.body;
                 const response = await userService.createUser(body);
-                if (!response.success) throw new Error(response.error.message);
+                // if (!response.success) throw new Error(response.error.message);
                 const { user } = response;
-                res.json({
-                    success: true,
-                    user
-                });
+                res.json(user)
 
             } catch (error) {
                 throw error
@@ -41,12 +38,9 @@ class UserRouter {
             try {
 
                 const response = await userService.getAllUsers();
-                if (!response.success) throw new Error(response.error.message);
-                const { users } = response;
-                res.json({
-                    success: true,
-                    users
-                });
+                // if (!response.success) throw new Error(response.error.message);
+                // const { users } = response;
+                res.send(response)
 
             } catch (error) {
                 throw error
@@ -94,7 +88,7 @@ class UserRouter {
 
                 const { id } = req.params;
                 const response = await userService.deleteUser(id);
-                if (!response.success) throw new Error(response.error.message);
+                if (!response) throw new Error(response.error.message);
                 res.json({
                     success: true
                 });
